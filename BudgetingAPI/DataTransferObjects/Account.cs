@@ -4,9 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using BudgetingAPI.Enums;
 
-namespace BudgetingAPI.Models
+namespace BudgetingAPI.DataTransferObjects
+
 {
-    public class Account
+    public class AccountDto
     {
         public int AccountId { get; set; }
         public string AccountName { get; set; }
