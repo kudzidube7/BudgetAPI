@@ -27,20 +27,83 @@ namespace BudgetingAPI.Controllers
             this.mapper = mapper;
         }
 
-        [HttpGet("id")]
-        public ActionResult<AccountDto> Get(int id)
+        [HttpGet]
+        public ActionResult<IEnumerable<AccountDto>> Get()
         {
+            IEnumerable<AccountDto> accounts;
             try
             {
-                AccountDto account = accountRepository.GetAccountById(id);
-                return account;
+               
+                accounts = accountRepository.GetAllAccounts();
             }
             catch (Exception)
             {
 
                 throw;
             }
+            return Ok( accounts);
         }
 
+        [HttpGet("id")]
+        public ActionResult<AccountDto> Get(int id)
+        {
+            try
+            {
+                AccountDto account = accountRepository.GetAccountById(id);
+                return account;   
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost]
+        [Route("UpdateAccount")]
+
+        public ActionResult<AccountDto> UpdateAccount(Account account)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+           // AccountDto updatedAccount;
+            try
+            {
+
+               accountRepository.UpdateAccount(account);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return Ok();
+        }
+
+        [HttpPost]
+        public ActionResult<AccountDto> AddAccount(Account account)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            // AccountDto updatedAccount;
+            try
+            {
+
+                accountRepository.AddAccount(account);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return Ok();
+        }
     }
 }

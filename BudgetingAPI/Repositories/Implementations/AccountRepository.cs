@@ -53,7 +53,13 @@ namespace BudgetingAPI.Repositories.Implementations
             try
             {
                 AccountDto account = _mapper.Map<AccountDto>(context.Accounts.Find(id));
-                return account;
+
+                if (account == null)
+                {
+                    return null;
+                }
+                    return account;
+
             }
             catch (Exception)
             {
